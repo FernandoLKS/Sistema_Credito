@@ -1,0 +1,104 @@
+{
+    "inadimplencia_total": {
+        "codigo": "21082",
+        "descricao": "Taxa de inadimplência total",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "inadimplencia_pf": {
+        "codigo": "21083",
+        "descricao": "Inadimplência pessoa física",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "inadimplencia_pj": {
+        "codigo": "21084",
+        "descricao": "Inadimplência pessoa jurídica",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "inadimplencia_30": {
+        "codigo": "21085",
+        "descricao": "% operações com atraso até 30 dias",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "inadimplencia_60": {
+        "codigo": "21086",
+        "descricao": "% operações com atraso 31–60 dias",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "credito_vencido_pf": {
+        "codigo": "21088",
+        "descricao": "Valor de crédito vencido PF",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "credito_vencido_pj": {
+        "codigo": "21089",
+        "descricao": "Valor de crédito vencido PJ",
+        "periodicidade": "mensal",
+        "categoria": "risco_credito"
+    },
+    "juros_credito": {
+        "codigo": "20714",
+        "descricao": "Taxa média de juros do crédito",
+        "periodicidade": "mensal",
+        "categoria": "custo_credito"
+    },
+    "spread_bancario": {
+        "codigo": "20783",
+        "descricao": "Spread bancário médio",
+        "periodicidade": "mensal",
+        "categoria": "custo_credito"
+    },
+    "credito_total": {
+        "codigo": "20631",
+        "descricao": "Saldo total da carteira de crédito",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "credito_pf": {
+        "codigo": "20632",
+        "descricao": "Crédito para pessoa física",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "credito_pj": {
+        "codigo": "20633",
+        "descricao": "Crédito para pessoa jurídica",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "novo_credito_pf": {
+        "codigo": "20634",
+        "descricao": "Novo crédito concedido a PF",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "novo_credito_pj": {
+        "codigo": "20635",
+        "descricao": "Novo crédito concedido a PJ",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "qtde_contratos": {
+        "codigo": "21087",
+        "descricao": "Quantidade de contratos ativos",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "selic": {
+        "codigo": "432",
+        "descricao": "Taxa Selic",
+        "periodicidade": "diario",
+        "categoria": "macro"
+    },
+    "ipca": {
+        "codigo": "433",
+        "descricao": "Inflação IPCA",
+        "periodicidade": "mensal",
+        "categoria": "macro"
+    }
+}
