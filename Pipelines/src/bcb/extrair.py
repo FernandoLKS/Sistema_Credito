@@ -7,8 +7,8 @@ import json
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 caminho_json_relatorios = os.path.join(BASE_DIR, "relatorios.json")
 
-def extrair():
-    def puxar_relatorio(codigo, data_inicial='01/01/2000', data_final=datetime.today().strftime('%d/%m/%Y')):
+def extrair(data_inicial='2011-03-01', data_final='2011-04-05'):
+    def puxar_relatorio(codigo, data_inicial, data_final):
         url = (
             f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.{codigo}/dados"
             f"?formato=json&dataInicial={data_inicial}&dataFinal={data_final}"
@@ -34,12 +34,8 @@ def extrair():
         relatorios = json.load(f)
     df_final = None
 
-    data_inicial='01/01/2000'
-    data_final=datetime.today().strftime('%d/%m/%Y')
-
     for nome, info in relatorios.items():
-        
-        print(f"Baixando: {nome}")    
+        print(nome)
         df = puxar_relatorio(info["codigo"], data_inicial, data_final)    
         if df.empty:
             continue
