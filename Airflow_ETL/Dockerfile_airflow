@@ -1,0 +1,11 @@
+FROM apache/airflow:2.9.0
+
+USER airflow
+
+# Instala libs Python do seu projeto
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia seu código
+COPY Pipelines/ /opt/airflow/Pipelines
+COPY Funcoes/ /opt/airflow/Funcoes
