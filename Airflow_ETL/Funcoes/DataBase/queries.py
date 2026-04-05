@@ -1,3 +1,5 @@
+# Queries SQL para criação da tabela bcb_macro
+
 Criar_tabela_bcb_macro = """
 CREATE TABLE IF NOT EXISTS bcb_macro (
     data DATE PRIMARY KEY,
@@ -24,4 +26,17 @@ CREATE TABLE IF NOT EXISTS bcb_macro (
     selic DECIMAL(5,2),
     ipca DECIMAL(5,2)
 );
+"""
+
+# Query inserir dados na tabela bcb_macro
+Inserir_Registro_bcb_macro = """
+    INSERT INTO bcb_macro ({colunas})
+    VALUES ({placeholders})
+    ON CONFLICT (data) DO UPDATE
+    SET {update_sql}
+"""
+
+# Query para pegar a última data disponível na tabela bcb_macro
+Pegar_data_mais_recente = """
+SELECT MAX(data) FROM bcb_macro;
 """

@@ -53,7 +53,7 @@ default_args = {
 with DAG(
     'pipelineBcb',
     default_args=default_args,
-    schedule='@daily',
+    schedule=None,
     catchup=False
 ) as dag:
 

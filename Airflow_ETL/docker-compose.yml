@@ -1,4 +1,15 @@
 services:
+  postgres-airflow:
+    image: postgres:15
+    container_name: postgres-airflow
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_airflow_data:/var/lib/postgresql/data
 
   airflow-webserver:
     build:
@@ -10,16 +21,12 @@ services:
     volumes:
       - ./Pipelines:/opt/airflow/Pipelines
       - ./Funcoes:/opt/airflow/Funcoes
-      #- ./logs:/opt/airflow/logs
     environment:
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
       AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
       AIRFLOW__CORE__DAGS_FOLDER: "/opt/airflow/Pipelines/dags"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://postgres:postgres@host.docker.internal:5433/credito_data"
-      AIRFLOW__CORE__FERNET_KEY: "wK9x0H9Z1z2l3Q0vT5mY6a3J7L8x9H0vW1Y2Z3A4B5E="
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow"
       AIRFLOW__WEBSERVER__SECRET_KEY: "admin123"
-      #AIRFLOW__CORE__BASE_LOG_FOLDER: "/opt/airflow/logs"
-      AIRFLOW__CORE__REMOTE_LOGGING: "False"
       PYTHONPATH: "/opt/airflow/Pipelines:/opt/airflow"
     command: >
       bash -c "
@@ -27,6 +34,8 @@ services:
       airflow users create --username airflow --password airflow --firstname admin --lastname user --role Admin --email admin@email.com &&
       airflow webserver
       "
+    depends_on:
+      - postgres-airflow
 
   airflow-scheduler:
     build:
@@ -36,16 +45,12 @@ services:
     volumes:
       - ./Pipelines:/opt/airflow/Pipelines
       - ./Funcoes:/opt/airflow/Funcoes
-      #- ./logs:/opt/airflow/logs
     environment:
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
       AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
       AIRFLOW__CORE__DAGS_FOLDER: "/opt/airflow/Pipelines/dags"
-      AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://postgres:postgres@host.docker.internal:5433/credito_data"
-      AIRFLOW__CORE__FERNET_KEY: "wK9x0H9Z1z2l3Q0vT5mY6a3J7L8x9H0vW1Y2Z3A4B5E="
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow:airflow@postgres-airflow:5432/airflow"
       AIRFLOW__WEBSERVER__SECRET_KEY: "admin123"
-      #AIRFLOW__CORE__BASE_LOG_FOLDER: "/opt/airflow/logs"
-      AIRFLOW__CORE__REMOTE_LOGGING: "False"
       PYTHONPATH: "/opt/airflow/Pipelines:/opt/airflow"
     command: >
       bash -c "
@@ -54,3 +59,6 @@ services:
       "
     depends_on:
       - airflow-webserver
+
+volumes:
+  postgres_airflow_data:
