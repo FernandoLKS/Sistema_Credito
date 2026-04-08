@@ -10,7 +10,9 @@ import logging
 logger = logging.getLogger("airflow.task")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMP_DIR = os.path.join(BASE_DIR, "temp")
 caminho_json_relatorios = os.path.join(BASE_DIR, "relatorios.json")
+
 def extrair(data_inicial=None, data_final=None):
     logger.info("Iniciando extração de dados do BCB...")
 
@@ -74,5 +76,7 @@ def extrair(data_inicial=None, data_final=None):
     # df_final = df_final[df_final['inadimplencia_total'].notna()]
     logger.info(f"Extração concluída. Total de linhas: {len(df_final)}")
     logger.info(f"Exemplo de dados:\n{df_final.head()}")
-
-    return df_final
+    
+    path = os.path.join(TEMP_DIR, "bcb_extract.parquet")
+    df.to_parquet(path)
+    return path
