@@ -1,5 +1,4 @@
 # Queries SQL para criação da tabela bcb_macro
-
 Criar_tabela_bcb_macro = """
 CREATE TABLE IF NOT EXISTS bcb_macro (
     data DATE PRIMARY KEY,
