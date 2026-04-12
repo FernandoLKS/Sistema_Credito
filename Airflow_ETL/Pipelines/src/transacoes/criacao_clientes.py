@@ -1,5 +1,8 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+
 
 """
 PF
@@ -26,11 +29,6 @@ Setor
 Número de Funcionários
 Historico de Atraso
 """
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from scipy import stats
 
 def gerar_clientes_pf(quantidade: int, seed: int = None):
     rng = np.random.default_rng(seed)
