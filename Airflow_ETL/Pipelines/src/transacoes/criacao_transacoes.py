@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy import stats
 
-def simular_mes(clientes_pf, clientes_pj, inad_bcb_pf, inad_bcb_pj):
+def simular_transacoes(clientes_pf, clientes_pj, inad_bcb_pf, inad_bcb_pj):
     rng = np.random.default_rng()
 
     # Calibração PF

@@ -1,43 +1,37 @@
 {
-    "inadimplencia_total": {
+    "inadimplencia_total_mais_90dias": {
         "codigo": "21082",
-        "descricao": "Taxa de inadimplência total",
+        "descricao": "Taxa de inadimplência total (Mais de 90 dias)",
         "periodicidade": "mensal",
         "categoria": "risco_credito"
     },
-    "inadimplencia_pf": {
-        "codigo": "21083",
-        "descricao": "Inadimplência pessoa física",
-        "periodicidade": "mensal",
-        "categoria": "risco_credito"
-    },
-    "inadimplencia_pj": {
+    "inadimplencia_pf_mais_90dias": {
         "codigo": "21084",
-        "descricao": "Inadimplência pessoa jurídica",
+        "descricao": "Inadimplência pessoa física (Mais de 90 dias)",
         "periodicidade": "mensal",
         "categoria": "risco_credito"
     },
-    "inadimplencia_30": {
-        "codigo": "21085",
-        "descricao": "% operações com atraso até 30 dias",
+    "inadimplencia_pj_mais_90dias": {
+        "codigo": "21083",
+        "descricao": "Inadimplência pessoa jurídica (Mais de 90 dias)",
         "periodicidade": "mensal",
         "categoria": "risco_credito"
     },
-    "inadimplencia_60": {
-        "codigo": "21086",
-        "descricao": "% operações com atraso 31–60 dias",
+    "inadimplencia_total_15_90dias": {
+        "codigo": "21003",
+        "descricao": "Taxa de inadimplência total (15 - 90 dias)",
         "periodicidade": "mensal",
         "categoria": "risco_credito"
     },
-    "credito_vencido_pf": {
-        "codigo": "21088",
-        "descricao": "Valor de crédito vencido PF",
+    "inadimplencia_pf_15_90dias": {
+        "codigo": "21005",
+        "descricao": "Inadimplência pessoa física (15 - 90 dias)",
         "periodicidade": "mensal",
         "categoria": "risco_credito"
     },
-    "credito_vencido_pj": {
-        "codigo": "21089",
-        "descricao": "Valor de crédito vencido PJ",
+    "inadimplencia_pj_15_90dias": {
+        "codigo": "21004",
+        "descricao": "Inadimplência pessoa jurídica (15 - 90 dias)",
         "periodicidade": "mensal",
         "categoria": "risco_credito"
     },
@@ -54,38 +48,38 @@
         "categoria": "custo_credito"
     },
     "credito_total": {
-        "codigo": "20631",
-        "descricao": "Saldo total da carteira de crédito",
+        "codigo": "20539",
+        "descricao": "Saldo total da carteira de crédito (milhões)",
         "periodicidade": "mensal",
         "categoria": "volume_credito"
     },
     "credito_pf": {
-        "codigo": "20632",
-        "descricao": "Crédito para pessoa física",
+        "codigo": "20541",
+        "descricao": "Crédito para pessoa física (milhões)",
         "periodicidade": "mensal",
         "categoria": "volume_credito"
     },
     "credito_pj": {
-        "codigo": "20633",
-        "descricao": "Crédito para pessoa jurídica",
+        "codigo": "20540",
+        "descricao": "Crédito para pessoa jurídica (milhões)",
         "periodicidade": "mensal",
         "categoria": "volume_credito"
     },
-    "novo_credito_pf": {
-        "codigo": "20634",
+    "concessoes_total": {
+        "codigo": "20631",
+        "descricao": "Novas concessões",
+        "periodicidade": "mensal",
+        "categoria": "volume_credito"
+    },
+    "concessoes_pf": {
+        "codigo": "20633",
         "descricao": "Novo crédito concedido a PF",
         "periodicidade": "mensal",
         "categoria": "volume_credito"
     },
-    "novo_credito_pj": {
-        "codigo": "20635",
+    "concessoes_pj": {
+        "codigo": "20632",
         "descricao": "Novo crédito concedido a PJ",
-        "periodicidade": "mensal",
-        "categoria": "volume_credito"
-    },
-    "qtde_contratos": {
-        "codigo": "21087",
-        "descricao": "Quantidade de contratos ativos",
         "periodicidade": "mensal",
         "categoria": "volume_credito"
     },

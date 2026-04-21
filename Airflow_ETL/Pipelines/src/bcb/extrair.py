@@ -23,7 +23,7 @@ def extrair(data_inicial=None, data_final=None):
         )
         try:
             response = requests.get(url, timeout=10)
-            response.raise_for_status()  # lança erro se status != 200
+            response.raise_for_status()
             data = response.json()
         except Exception as e:
             logger.warning(f"Erro ao puxar série {codigo}: {e}")
@@ -36,6 +36,11 @@ def extrair(data_inicial=None, data_final=None):
 
         df["data"] = pd.to_datetime(df["data"], dayfirst=True)
         df["valor"] = pd.to_numeric(df["valor"], errors="coerce")
+
+        # Se for Selic (código 432), pega apenas o dia 01 de cada mês
+        if codigo == "432":
+            df = df[df["data"].dt.day == 1]
+
         return df
 
     # Pegando a última data disponível no banco
@@ -49,9 +54,10 @@ def extrair(data_inicial=None, data_final=None):
         ultima_data = pd.Timestamp("2011-03-01")
 
     proximo_mes = (ultima_data + pd.DateOffset(months=1)).replace(day=1)
+    doze_meses = (ultima_data + pd.DateOffset(months=12)).replace(day=1)
 
     data_inicial = proximo_mes.strftime("%d/%m/%Y")
-    data_final = proximo_mes.strftime("%d/%m/%Y")
+    data_final = doze_meses.strftime("%d/%m/%Y")
     logger.info(f"Extraindo dados de {data_inicial} até {data_final}")
 
     with open(caminho_json_relatorios, "r", encoding="utf-8") as f:
