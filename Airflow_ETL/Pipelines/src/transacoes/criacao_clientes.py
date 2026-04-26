@@ -181,7 +181,7 @@ def gerar_clientes_pj(quantidade: int, seed: int = None):
     # dataframe final
     df = pd.DataFrame({
         "setor": setor,
-        "idade_empresa": idade_empresa,
+        "idade": idade_empresa,
         "faturamento_anual": faturamento,
         "num_funcionarios": num_funcionarios,
         "margem_lucro": margem_lucro,
