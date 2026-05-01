@@ -2,18 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 
-
-# =========================
-# 1. GERAÇÃO DE OPERAÇÕES
-# =========================
-
-def gerar_operacoes_mes(
-    clientes,
-    concessoes_pf,
-    concessoes_pj,
-    min_valor=1000,
-    seed=None
-):
+def gerar_operacoes_mes(clientes, concessoes_pf, concessoes_pj, min_valor=1000, seed=None):
     rng = np.random.default_rng(seed)
     novas_operacoes = []
 
@@ -85,25 +74,9 @@ def gerar_operacoes_mes(
 
     return pd.DataFrame(novas_operacoes)
 
-
-# =========================
-# 2. INADIMPLÊNCIA (RANK + CALIBRAÇÃO)
-# =========================
-
-def atualizar_inadimplencia(
-    df,
-    taxa_pf,
-    taxa_pj,
-    prob_migra_ativa_30=0.03,
-    prob_migra_30_60=0.5,
-    prob_migra_60_90=0.5,
-    prob_regulariza=0.2
-):
+def atualizar_inadimplencia(df, taxa_pf, taxa_pj, prob_migra_ativa_30=0.03, prob_migra_30_60=0.5, prob_migra_60_90=0.5, prob_regulariza=0.2):
     df = df.copy()
 
-    # -------------------------
-    # 1. dinâmica base
-    # -------------------------
     for i, row in df.iterrows():
 
         if row["status"] == "ativa":
@@ -124,10 +97,6 @@ def atualizar_inadimplencia(
 
     # incrementa atraso
     df.loc[df["status"] != "ativa", "meses_em_atraso"] += 1
-
-    # -------------------------
-    # 2. calibração via ranking (PD)
-    # -------------------------
 
     def ajustar(tipo, taxa_alvo):
         sub = df[df["tipo"] == tipo]
@@ -168,11 +137,6 @@ def atualizar_inadimplencia(
 
     return df
 
-
-# =========================
-# 3. AMORTIZAÇÃO
-# =========================
-
 def amortizar_operacoes(df):
     df = df.copy()
 
@@ -182,11 +146,6 @@ def amortizar_operacoes(df):
     df.loc[mask, "parcelas_pagas"] += 1
 
     return df[df["parcelas_pagas"] < df["parcelas_total"]]
-
-
-# =========================
-# 4. MÉTRICA
-# =========================
 
 def calcular_inadimplencia(df):
     saldo_total = df["saldo_devedor"].sum()

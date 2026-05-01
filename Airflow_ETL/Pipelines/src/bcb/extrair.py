@@ -47,8 +47,6 @@ def extrair(data_inicial=None, data_final=None):
     ultima_data = executar_sql(Pegar_data_mais_recente)[0][0]
     logger.info(f"Última data no banco: {ultima_data}")
 
-    print(ultima_data)
-
     if ultima_data is None:
         logger.info("Banco vazio. Usando data inicial padrão.")
         ultima_data = pd.Timestamp("2011-03-01")
