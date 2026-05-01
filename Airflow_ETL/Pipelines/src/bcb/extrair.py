@@ -3,8 +3,7 @@ import requests
 import pandas as pd
 import os
 import json
-from Funcoes.DataBase.conexoes import executar_sql
-from Funcoes.DataBase.queries import Pegar_data_mais_recente
+from Funcoes.DataBase.conexoes import executar_sql, load_sql
 import logging
 
 logger = logging.getLogger("airflow.task")
@@ -16,16 +15,16 @@ caminho_json_relatorios = os.path.join(BASE_DIR, "relatorios.json")
 def extrair(data_inicial=None, data_final=None):
     logger.info("Iniciando extração de dados do BCB...")
 
-    def puxar_relatorio(codigo, data_inicial, data_final):
+    def puxar_relatorio(codigo, data_inicial, data_final):      
         url = (
             f"https://api.bcb.gov.br/dados/serie/bcdata.sgs.{codigo}/dados"
             f"?formato=json&dataInicial={data_inicial}&dataFinal={data_final}"
         )
         try:
-            response = requests.get(url, timeout=10)
+            response = requests.get(url, timeout=10)                    
             response.raise_for_status()
             data = response.json()
-        except Exception as e:
+        except Exception as e:  
             logger.warning(f"Erro ao puxar série {codigo}: {e}")
             return pd.DataFrame()
 
@@ -44,7 +43,9 @@ def extrair(data_inicial=None, data_final=None):
         return df
 
     # Pegando a última data disponível no banco
-    ultima_data = executar_sql(Pegar_data_mais_recente)[0][0]
+    query = load_sql("Data_mais_recente.sql")
+    logger.info(query)
+    ultima_data = executar_sql(query)[0][0]
     logger.info(f"Última data no banco: {ultima_data}")
 
     if ultima_data is None:

@@ -1,11 +1,4 @@
-from conexoes import executar_sql
-
-def criar_tabelas():
-
-  def criar_tabelas():
-
-    query = """
-    -- ============================================
+-- ============================================
     -- TABELA: BCB INDICADORES MACRO
     -- ============================================
     CREATE TABLE IF NOT EXISTS bcb_macro (
@@ -142,7 +135,3 @@ def criar_tabelas():
 
     CREATE INDEX IF NOT EXISTS idx_clientes_historico_data
         ON clientes_historico(data_ref);
-
-    """
-
-    executar_sql(query, fetch=False)

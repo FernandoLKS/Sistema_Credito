@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 DB_CONFIG = {
     "dbname": "credito_data",
@@ -10,6 +11,19 @@ DB_CONFIG = {
 
 def get_connection():
     return psycopg2.connect(**DB_CONFIG)
+
+def load_sql(nome_arquivo):
+    caminho = os.path.join(
+        os.path.dirname(__file__),
+        "..",
+        "Queries",
+        nome_arquivo
+    )
+
+    print(caminho)
+
+    with open(caminho, "r", encoding="utf-8") as f:
+        return f.read()
 
 def executar_sql(query, params=None, fetch=True, many=False):
     conn = None

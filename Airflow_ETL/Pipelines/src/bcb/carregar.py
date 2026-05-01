@@ -1,5 +1,4 @@
-from Funcoes.DataBase.conexoes import executar_sql
-from Funcoes.DataBase.queries import Inserir_Registro_bcb_macro
+from Funcoes.DataBase.conexoes import executar_sql, load_sql
 
 def carregar(df):
     if df is None or df.empty:
@@ -14,7 +13,7 @@ def carregar(df):
     update_sql = ", ".join([f"{col} = EXCLUDED.{col}" for col in colunas if col != "data"])
 
     # Formata a query do arquivo queries.py
-    query = Inserir_Registro_bcb_macro.format(
+    query = load_sql("Inserir_registro_BCB_macro.sql").format(
         colunas=colunas_sql,
         placeholders=placeholders,
         update_sql=update_sql

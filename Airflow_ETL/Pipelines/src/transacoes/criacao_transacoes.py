@@ -3,7 +3,7 @@ import numpy as np
 from criacao_clientes import gerar_clientes_pf, gerar_clientes_pj
 from criacao_operacoes import gerar_operacoes_mes, atualizar_inadimplencia, amortizar_operacoes, calcular_inadimplencia
 
-def rodar_mes(data_ref, clientes, operacoes, concessoes_pf, concessoes_pj, taxa_pf_bcb, taxa_pj_bcb, novos_pf_qtd=200, novos_pj_qtd=50, prob_remocao=0.1):
+def gerar_transacoes(data_ref, clientes, operacoes, concessoes_pf, concessoes_pj, taxa_pf_bcb, taxa_pj_bcb, novos_pf_qtd=200, novos_pj_qtd=50, prob_remocao=0.1):
 
     print(f"\n=== Rodando mês {data_ref} ===")
 

@@ -23,6 +23,8 @@ def transform_task(**context):
     path = ti.xcom_pull(task_ids='extract')
 
     df = pd.read_parquet(path)
+    logging.info(f"Colunas do DF: {df.columns.tolist()}")
+    logging.info(f"Shape: {df.shape}")
     df = transformar(df)
 
     path = os.path.join(TEMP_DIR, "bcb_transform.parquet")
