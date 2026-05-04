@@ -1,5 +1,7 @@
 import psycopg2
 import os
+import pandas as pd
+from psycopg2.extras import execute_values
 
 DB_CONFIG = {
     "dbname": "credito_data",
@@ -9,10 +11,12 @@ DB_CONFIG = {
     "port": "5433"
 }
 
-def get_connection():
+
+def obter_conexao():
     return psycopg2.connect(**DB_CONFIG)
 
-def load_sql(nome_arquivo):
+
+def carregar_sql(nome_arquivo):
     caminho = os.path.join(
         os.path.dirname(__file__),
         "..",
@@ -20,33 +24,61 @@ def load_sql(nome_arquivo):
         nome_arquivo
     )
 
-    print(caminho)
-
     with open(caminho, "r", encoding="utf-8") as f:
         return f.read()
 
-def executar_sql(query, params=None, fetch=True, many=False):
-    conn = None
-    resultado = None
+
+def consultar_dataframe(query, params=None):
+    conn = obter_conexao()
     try:
-        conn = get_connection()
-        cursor = conn.cursor()
-        if many and params:
-            cursor.executemany(query, params)
-        elif params:
+        with conn.cursor() as cursor:
             cursor.execute(query, params)
-        else:
-            cursor.execute(query)
 
-        if fetch:
-            resultado = cursor.fetchall()
-        else:
-            conn.commit()
+            rows = cursor.fetchall()
+            colunas = [desc[0] for desc in cursor.description]
 
-        cursor.close()
-    except Exception as e:
-        print(f"Erro ao executar SQL: {e}")
+            return pd.DataFrame(rows, columns=colunas)
+
     finally:
-        if conn:
-            conn.close()
-    return resultado
+        conn.close()
+
+
+def executar_comando(query, params=None):
+    conn = obter_conexao()
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(query, params)
+        conn.commit()
+
+    except Exception as e:
+        conn.rollback()
+        raise e
+
+    finally:
+        conn.close()
+
+
+def inserir_dataframe(tabela, df):
+    if df is None or df.empty:
+        return
+
+    conn = obter_conexao()
+    try:
+        with conn.cursor() as cursor:
+            colunas = ", ".join(df.columns)
+
+            query = f"""
+                INSERT INTO {tabela} ({colunas})
+                VALUES %s
+            """
+
+            execute_values(cursor, query, df.values.tolist())
+
+        conn.commit()
+
+    except Exception as e:
+        conn.rollback()
+        raise e
+
+    finally:
+        conn.close()

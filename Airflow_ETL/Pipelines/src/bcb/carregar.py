@@ -1,4 +1,4 @@
-from Funcoes.DataBase.conexoes import executar_sql, load_sql
+from Funcoes.DataBase.conexoes import inserir_dataframe
 
 def carregar(df):
     if df is None or df.empty:
@@ -7,23 +7,6 @@ def carregar(df):
 
     print("Iniciando carregamento no banco...")
 
-    colunas = list(df.columns)
-    colunas_sql = ", ".join(colunas)
-    placeholders = ", ".join(["%s"] * len(colunas))
-    update_sql = ", ".join([f"{col} = EXCLUDED.{col}" for col in colunas if col != "data"])
-
-    # Formata a query do arquivo queries.py
-    query = load_sql("Inserir_registro_BCB_macro.sql").format(
-        colunas=colunas_sql,
-        placeholders=placeholders,
-        update_sql=update_sql
-    )
-
-    # Converte DataFrame em lista de tuplas
-    dados = [tuple(x) for x in df.to_numpy()]
-
-    print(dados)
-    # Executa SQL usando sua função
-    executar_sql(query, params=dados, many=True, fetch=False)
+    inserir_dataframe("bcb_macro", df)
 
     print("Dados inseridos com sucesso!")
