@@ -93,7 +93,7 @@ O fluxo principal do projeto segue as seguintes etapas:
 
 ## Visualização de Dados
 
-- Power BI *(planejado)*
+- Power BI
 - Matplotlib
 - Seaborn
 - Plotly
@@ -103,6 +103,7 @@ O fluxo principal do projeto segue as seguintes etapas:
 - Scikit-learn
 - NumPy
 - SciPy
+- Statsmodels
 
 ## Versionamento
 
